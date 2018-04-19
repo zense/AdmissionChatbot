@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}
+</style>
+</head>
+<body>
+
+<h2>Chat Messages</h2>
+
+<div id="chat">
+	<div class="container">
+	  <p>Hello. How are you today?</p>
+	</div>
+
+	<!-- <div class="container darker">
+	  <p>Hey! I'm fine. Thanks for asking!</p>
+	</div> -->
+</div>
+
+
+
+<input type="text" id = "inp" >
+
+</body>
+</html>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+
+$("#inp").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+		$("#chat").append('<div class="container darker"><p>'+this.value+'</p></div>')
+        getResponse(this.value)
+    }
+});
+
+   function getResponse(message){
+	   var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://chatbotapi.zense.co.in",
+  "method": "POST",
+  "processData": false,
+  "data": JSON.stringify({
+    "input": {
+        "text": message
+    }
+})
+}
+$.ajax(settings).done(function (response) {
+	$("#chat").append('<div class="container"><p>'+response.output.text+'</p></div>')
+  console.log(response.output.text);
+});
+
+   }
+</script>
