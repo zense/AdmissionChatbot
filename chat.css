@@ -2,7 +2,7 @@ body{
     height:400px;
     position: fixed;
     bottom: 0;
-	background-color: transparent; 
+	background-color: transparent;
 }
 .col-md-2, .col-md-10{
     padding:0;
